@@ -58,6 +58,35 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+		<dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.16.0</version>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-fonts</artifactId>
+		    <version>6.0.0</version>
+		</dependency>
+        
+		<!-- https://mvnrepository.com/artifact/com.mpobjects.jasperreports.font/jasperreports-fonts-liberation -->
+		<dependency>
+		    <groupId>com.mpobjects.jasperreports.font</groupId>
+		    <artifactId>jasperreports-fonts-liberation</artifactId>
+		    <version>2.00.4</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.apache.poi</groupId>
+		  <artifactId>poi-ooxml</artifactId>
+		  <version>3.17</version>
+		</dependency>
+		<dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-websocket</artifactId>
+	    </dependency>
 	</dependencies>
 
 	<build>

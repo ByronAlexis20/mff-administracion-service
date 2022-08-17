@@ -3,8 +3,6 @@ package mff.administracion.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import mff.administracion.dao.ProductosDTO;
-
 public class ProductoDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;

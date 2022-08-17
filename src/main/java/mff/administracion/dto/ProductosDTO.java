@@ -1,12 +1,15 @@
-package mff.administracion.dao;
+package mff.administracion.dto;
 
 public class ProductosDTO {
 	private Integer idCategoria;
+	private String codigo;
+	private String categoria;
 	private Integer idProducto;
 	private String nombreProducto;
 	private Double precio;
 	private Integer stock;
 	private String estado;
+	private byte[] imagen;
 
 	public ProductosDTO() {
 		super();
@@ -67,5 +70,29 @@ public class ProductosDTO {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 }

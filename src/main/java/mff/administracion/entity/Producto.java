@@ -66,6 +66,11 @@ public class Producto implements Serializable {
 		super();
 	}
 
+	public Producto(Integer idProducto) {
+		super();
+		this.idProducto = idProducto;
+	}
+	
 	public Producto(Integer idProducto, Categoria categoria, String nombre, Double precio, Integer stock,
 			Date fechacCreacion, Date fechaModificacion, Date fechaEliminacion, Integer usuCreacion,
 			Integer usuModificacion, Integer usuEliminacion, String estado) {

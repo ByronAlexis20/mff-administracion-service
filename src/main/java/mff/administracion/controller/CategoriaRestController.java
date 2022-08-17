@@ -1,5 +1,6 @@
 package mff.administracion.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,28 @@ public class CategoriaRestController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			data = categoriaService.buscarTodasCategoriasActivas();
+		} catch (DataAccessException e) {
+			response.put("mensaje: ", DatosSesionUtil.mensajeErrorConsulta);
+			response.put("error: ", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (data == null || data.size() == 0) {
+			response.put("mensaje: ", DatosSesionUtil.mensajeNoDatos);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Categoria>>(data, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/buscarActivosMasTodos")
+	public ResponseEntity<?> buscarActivosMasTodos() {
+		List<Categoria> data = new ArrayList<>();
+		Map<String, Object> response = new HashMap<>();
+		try {
+			Categoria cat = new Categoria();
+			cat.setIdCategoria(0);
+			cat.setCategoria("--- Todos ---");
+			data.add(cat);
+			data.addAll(categoriaService.buscarTodasCategoriasActivas());
 		} catch (DataAccessException e) {
 			response.put("mensaje: ", DatosSesionUtil.mensajeErrorConsulta);
 			response.put("error: ", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

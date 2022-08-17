@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mff.administracion.dao.IProductoDAO;
-import mff.administracion.dao.ProductosDTO;
+import mff.administracion.dto.ProductosDTO;
 import mff.administracion.entity.Categoria;
 import mff.administracion.entity.Producto;
 import mff.administracion.service.IProductoService;
@@ -39,6 +39,12 @@ public class ProductoImpl implements IProductoService {
 		prod.setStock(pr.getStock());
 		prod.setIdProducto(pr.getIdProducto());
 		return this.productoDAO.save(prod);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> buscarProductosActivosDTOPorCategoria(Integer idCategoria) {
+		return this.productoDAO.buscarProductosActivosDTOPorCategoria(idCategoria);
 	}
 
 }
