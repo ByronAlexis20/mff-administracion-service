@@ -1,12 +1,16 @@
 package mff.administracion.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mff.administracion.dao.PedidosAtenderDTO;
+import mff.administracion.dto.PedidoDTO;
 import mff.administracion.dto.ProductoDTO;
 import mff.administracion.dto.ProductosDTO;
 import mff.administracion.entity.Imagen;
@@ -26,6 +31,8 @@ import mff.administracion.service.IImagenService;
 import mff.administracion.service.IPedidoService;
 import mff.administracion.service.IProductoService;
 import mff.administracion.util.DatosSesionUtil;
+import mff.administracion.util.FuncionesGenerales;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 @RequestMapping("/mff-administracion/pedidocliente")
@@ -191,4 +198,42 @@ public class PedidosClienteRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
+	@GetMapping(value = "/imprimirReporteVentas")
+	public ResponseEntity<byte[]> imprimirReporteVentas() {
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MMM/yyyy");
+		
+		List<PedidoDTO> dataFinal = new ArrayList<>();
+		List<Pedido> listaPedidos = this.pedidoService.buscarPedidoAtendido(); 
+		Integer cantidad = 0;
+		for(Pedido prod : listaPedidos) {
+			PedidoDTO dto = new PedidoDTO();
+			List<PedidoDetalle> det = this.pedidoService.buscarPedidoPorPedido(prod.getIdPedido());
+			cantidad = 0;
+			for(PedidoDetalle d : det) {
+				cantidad = cantidad + d.getCantidad();
+			}
+			dto.setCantidad(String.valueOf(cantidad));
+			dto.setFecha(formatoFecha.format(prod.getFecha()));
+			dto.setIdPedido(prod.getIdPedido());
+			dto.setNombreCliente(prod.getCliente().getNombres() + " " + prod.getCliente().getApellidos());
+			dto.setTotal(prod.getTotal());
+			dataFinal.add(dto);
+		}
+		
+		FuncionesGenerales obj = new FuncionesGenerales();
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("empresa", "EL MARISCAL FAST FOOD");
+		parameters.put("fecha", formatoFecha.format(new Date()));
+		parameters.put("nombrereporte","Listado de ventas de pedidos");
+		
+		JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(dataFinal, false);
+		
+		byte[] bytes = obj.generarReportePDF("rptVentas", parameters, source);
+		
+		ContentDisposition contentDisposition = ContentDisposition.builder("inline").filename("reporteVentas" + ".pdf").build();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentDisposition(contentDisposition);
+		return ResponseEntity.ok().header("Content-Type", "application/pdf; charset=UTF-8").headers(headers)
+				.body(bytes);
+	}
 }

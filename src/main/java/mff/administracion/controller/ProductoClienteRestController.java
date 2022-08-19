@@ -25,10 +25,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mff.administracion.dto.PedidoDTO;
 import mff.administracion.dto.ProductoAppDTO;
 import mff.administracion.dto.ProductoDTO;
 import mff.administracion.dto.ProductosDTO;
 import mff.administracion.entity.Imagen;
+import mff.administracion.entity.Pedido;
 import mff.administracion.entity.Producto;
 import mff.administracion.service.IImagenService;
 import mff.administracion.service.IProductoService;
@@ -195,4 +197,5 @@ public class ProductoClienteRestController {
 		}
 		return new ResponseEntity<List<ProductoAppDTO>>(data, HttpStatus.OK);
 	}
+	
 }

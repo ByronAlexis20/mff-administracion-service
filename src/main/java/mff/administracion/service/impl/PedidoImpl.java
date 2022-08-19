@@ -95,4 +95,10 @@ public class PedidoImpl implements IPedidoService {
 		return this.pedidoDAO.save(ped);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Pedido> buscarPedidoAtendido() {
+		return this.pedidoDAO.buscarPedidoAtendido();
+	}
+
 }

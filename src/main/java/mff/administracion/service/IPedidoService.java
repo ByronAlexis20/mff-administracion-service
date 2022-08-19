@@ -20,4 +20,5 @@ public interface IPedidoService {
 	
 	public Pedido grabar(Pedido ped);
 	
+	public List<Pedido> buscarPedidoAtendido();
 }
