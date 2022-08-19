@@ -12,4 +12,6 @@ public interface IProductoService {
 	public List<Producto> buscarProductosActivosDTOPorCategoria(Integer idCategoria);
 	
 	public Producto grabarProducto(ProductosDTO pr);
+	
+	public boolean verificarCodigo(ProductosDTO pr);
 }

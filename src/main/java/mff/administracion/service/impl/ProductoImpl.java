@@ -38,6 +38,7 @@ public class ProductoImpl implements IProductoService {
 		prod.setNombre(pr.getNombreProducto());
 		prod.setStock(pr.getStock());
 		prod.setIdProducto(pr.getIdProducto());
+		prod.setCodigo(pr.getCodigo());
 		return this.productoDAO.save(prod);
 	}
 
@@ -45,6 +46,27 @@ public class ProductoImpl implements IProductoService {
 	@Transactional(readOnly = true)
 	public List<Producto> buscarProductosActivosDTOPorCategoria(Integer idCategoria) {
 		return this.productoDAO.buscarProductosActivosDTOPorCategoria(idCategoria);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public boolean verificarCodigo(ProductosDTO pr) {
+		boolean bandera = false;
+		List<Producto> lista = this.productoDAO.buscarPorCodigo(pr.getCodigo());
+		if(lista.size() > 0) {
+			if(pr.getIdProducto() != null) {
+				for(Producto prod : lista) {
+					if(prod.getIdProducto() != pr.getIdProducto()) {
+						bandera = true;
+					}
+				}
+			}else {
+				bandera = false;
+			}
+		}else {
+			bandera = false;
+		}
+		return bandera;
 	}
 
 }

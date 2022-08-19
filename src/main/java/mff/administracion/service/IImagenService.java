@@ -8,6 +8,8 @@ public interface IImagenService {
 
 	public Imagen guardar(Imagen img);
 	
+	public Imagen buscarPorId(Integer id);
+	
 	public List<Imagen> buscarImagenesPorProducto(Integer id);
 	
 }

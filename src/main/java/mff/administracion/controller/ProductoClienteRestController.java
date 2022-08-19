@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,9 +36,10 @@ import mff.administracion.util.DatosSesionUtil;
 import mff.administracion.util.FuncionesGenerales;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("/mff-administracion/productousuario")
-public class ProductoRestController {
+@RequestMapping("/mff-administracion/producto")
+public class ProductoClienteRestController {
 
 	@Autowired
 	private IProductoService productoService;
@@ -78,7 +80,6 @@ public class ProductoRestController {
 						pr.setPrecio(p.getPrecio());
 						pr.setStock(p.getStock());
 						pr.setEstado(p.getEstado());
-						pr.setCodigo(p.getCodigo());
 						if(img.size() > 0)
 							pr.setImagen(img.get(0).getImagen());
 						lista.add(pr);

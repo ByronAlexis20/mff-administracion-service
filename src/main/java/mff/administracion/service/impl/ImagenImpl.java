@@ -28,4 +28,10 @@ public class ImagenImpl implements IImagenService {
 		return this.imagenDAO.buscarPorIdProducto(id);
 	}
 
+	@Override
+	@Transactional
+	public Imagen buscarPorId(Integer id) {
+		return this.imagenDAO.buscarPorId(id);
+	}
+
 }

@@ -37,6 +37,9 @@ public class Producto implements Serializable {
 
 	@Column(name = "stock")
 	private Integer stock;
+	
+	@Column(name = "codigo")
+	private String codigo;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_creacion")
@@ -183,6 +186,14 @@ public class Producto implements Serializable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }

@@ -43,7 +43,7 @@ public class Pedido implements Serializable {
 	private Double total;
 
 	@Column(name = "estado_pedido")
-	private Double estado_pedido;
+	private String estado_pedido;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_creacion")
@@ -74,7 +74,7 @@ public class Pedido implements Serializable {
 	}
 
 	public Pedido(Integer idPedido, Cliente cliente, Date fecha, Double latitud, Double longitud, Double total,
-			Double estado_pedido, Date fechacCreacion, Date fechaModificacion, Date fechaEliminacion,
+			String estado_pedido, Date fechacCreacion, Date fechaModificacion, Date fechaEliminacion,
 			Integer usuCreacion, Integer usuModificacion, Integer usuEliminacion, String estado) {
 		super();
 		this.idPedido = idPedido;
@@ -141,11 +141,11 @@ public class Pedido implements Serializable {
 		this.total = total;
 	}
 
-	public Double getEstado_pedido() {
+	public String getEstado_pedido() {
 		return estado_pedido;
 	}
 
-	public void setEstado_pedido(Double estado_pedido) {
+	public void setEstado_pedido(String estado_pedido) {
 		this.estado_pedido = estado_pedido;
 	}
 
