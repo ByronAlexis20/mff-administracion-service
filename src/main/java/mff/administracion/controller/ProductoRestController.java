@@ -1,8 +1,6 @@
 package mff.administracion.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +10,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,8 +27,6 @@ import mff.administracion.entity.Producto;
 import mff.administracion.service.IImagenService;
 import mff.administracion.service.IProductoService;
 import mff.administracion.util.DatosSesionUtil;
-import mff.administracion.util.FuncionesGenerales;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 @RequestMapping("/mff-administracion/productousuario")
@@ -123,48 +116,6 @@ public class ProductoRestController {
 		response.put("mensaje", DatosSesionUtil.mensajeOkGrabar);
 		response.put("producto", data);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-	}
-	
-
-	@GetMapping(value = "/imprimirReporteProductos/{idCategoria}")
-	public ResponseEntity<byte[]> imprimirReporteSRIenPDF(@PathVariable Integer idCategoria) {
-		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MMM/yyyy");
-		
-		List<ProductosDTO> dataFinal = new ArrayList<>();
-		List<Producto> listaProductos = null; 
-		if(idCategoria == 0)
-			listaProductos = this.productoService.buscarProductosActivosDTO();
-		else
-			listaProductos = this.productoService.buscarProductosActivosDTOPorCategoria(idCategoria);
-		
-		
-		for(Producto prod : listaProductos) {
-			ProductosDTO dto = new ProductosDTO();
-			dto.setCategoria(prod.getCategoria().getCategoria());
-			dto.setEstado("A");
-			dto.setIdCategoria(prod.getCategoria().getIdCategoria());
-			dto.setIdProducto(prod.getIdProducto());
-			dto.setNombreProducto(prod.getNombre());
-			dto.setPrecio(prod.getPrecio());
-			dto.setStock(prod.getStock());
-			dataFinal.add(dto);
-		}
-		
-		FuncionesGenerales obj = new FuncionesGenerales();
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("empresa", "EL MARISCAL FAST FOOD");
-		parameters.put("fecha", formatoFecha.format(new Date()));
-		parameters.put("nombrereporte","Listado de productos por categoría");
-		
-		JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(dataFinal, false);
-		
-		byte[] bytes = obj.generarReportePDF("rptProductos", parameters, source);
-		
-		ContentDisposition contentDisposition = ContentDisposition.builder("inline").filename("reporteSRI" + ".pdf").build();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentDisposition(contentDisposition);
-		return ResponseEntity.ok().header("Content-Type", "application/pdf; charset=UTF-8").headers(headers)
-				.body(bytes);
 	}
 	
 	@GetMapping(value = "/buscarTodosActivos")

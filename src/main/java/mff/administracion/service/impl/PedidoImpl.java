@@ -97,8 +97,14 @@ public class PedidoImpl implements IPedidoService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Pedido> buscarPedidoAtendido() {
-		return this.pedidoDAO.buscarPedidoAtendido();
+	public List<Pedido> buscarPedidoAtendidoPorFecha(Date fecha) {
+		return this.pedidoDAO.buscarPedidoAtendidoPorFecha(fecha);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Pedido> buscarPedidoAtendidoPorRangoFecha(Date fechaInicio, Date fechaFin) {
+		return this.pedidoDAO.buscarPedidoAtendidoPorRangoFecha(fechaInicio, fechaFin);
 	}
 
 }

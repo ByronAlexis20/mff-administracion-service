@@ -1,5 +1,6 @@
 package mff.administracion.service;
 
+import java.util.Date;
 import java.util.List;
 
 import mff.administracion.dto.PedidoClienteDTO;
@@ -20,5 +21,7 @@ public interface IPedidoService {
 	
 	public Pedido grabar(Pedido ped);
 	
-	public List<Pedido> buscarPedidoAtendido();
+	public List<Pedido> buscarPedidoAtendidoPorFecha(Date fecha);
+	
+	public List<Pedido> buscarPedidoAtendidoPorRangoFecha(Date fechaInicio, Date fechaFin);
 }
