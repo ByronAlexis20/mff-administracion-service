@@ -84,6 +84,7 @@ public class ReportesRestController {
 		List<PedidoDTO> dataFinal = new ArrayList<>();
 		List<Pedido> listaPedidos = this.pedidoService.buscarPedidoAtendidoPorFecha(fecha); 
 		Integer cantidad = 0;
+		Double totalGlobal = 0.0;
 		for(Pedido prod : listaPedidos) {
 			List<PedidoDetalle> det = this.pedidoService.buscarPedidoPorPedido(prod.getIdPedido());
 			cantidad = 0;
@@ -103,12 +104,14 @@ public class ReportesRestController {
 				dto.setTotalProducto(d.getTotal());
 				dataFinal.add(dto);
 			}
+			totalGlobal = totalGlobal + prod.getTotal();
 		}
 		
 		FuncionesGenerales obj = new FuncionesGenerales();
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("empresa", "EL MARISCAL FAST FOOD");
 		parameters.put("fecha", formatoFecha.format(new Date()));
+		parameters.put("totalGlobal", totalGlobal);
 		parameters.put("nombrereporte","Listado de ventas de pedidos para la fecha: " + formatoFecha.format(fecha));
 		
 		JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(dataFinal, false);
@@ -129,6 +132,7 @@ public class ReportesRestController {
 		List<PedidoDTO> dataFinal = new ArrayList<>();
 		List<Pedido> listaPedidos = this.pedidoService.buscarPedidoAtendidoPorRangoFecha(fechaInicio, fechaFin);
 		Integer cantidad = 0;
+		Double totalGlobal = 0.0;
 		for(Pedido prod : listaPedidos) {
 			List<PedidoDetalle> det = this.pedidoService.buscarPedidoPorPedido(prod.getIdPedido());
 			cantidad = 0;
@@ -148,12 +152,14 @@ public class ReportesRestController {
 				dto.setTotalProducto(d.getTotal());
 				dataFinal.add(dto);
 			}
+			totalGlobal = totalGlobal + prod.getTotal();
 		}
 		
 		FuncionesGenerales obj = new FuncionesGenerales();
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("empresa", "EL MARISCAL FAST FOOD");
 		parameters.put("fecha", formatoFecha.format(new Date()));
+		parameters.put("totalGlobal", totalGlobal);
 		parameters.put("nombrereporte","Listado de ventas de pedidos desde: " + formatoFecha.format(fechaInicio) + " hasta " + formatoFecha.format(fechaFin));
 		
 		JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(dataFinal, false);
