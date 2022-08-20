@@ -85,13 +85,13 @@ public class ReportesRestController {
 		List<Pedido> listaPedidos = this.pedidoService.buscarPedidoAtendidoPorFecha(fecha); 
 		Integer cantidad = 0;
 		for(Pedido prod : listaPedidos) {
-			PedidoDTO dto = new PedidoDTO();
 			List<PedidoDetalle> det = this.pedidoService.buscarPedidoPorPedido(prod.getIdPedido());
 			cantidad = 0;
 			for(PedidoDetalle d : det) {
 				cantidad = cantidad + d.getCantidad();
 			}
 			for(PedidoDetalle d : det) {
+				PedidoDTO dto = new PedidoDTO();
 				dto.setCantidad(String.valueOf(cantidad));
 				dto.setFecha(formatoFecha.format(prod.getFecha()));
 				dto.setIdPedido(prod.getIdPedido());
@@ -130,13 +130,13 @@ public class ReportesRestController {
 		List<Pedido> listaPedidos = this.pedidoService.buscarPedidoAtendidoPorRangoFecha(fechaInicio, fechaFin);
 		Integer cantidad = 0;
 		for(Pedido prod : listaPedidos) {
-			PedidoDTO dto = new PedidoDTO();
 			List<PedidoDetalle> det = this.pedidoService.buscarPedidoPorPedido(prod.getIdPedido());
 			cantidad = 0;
 			for(PedidoDetalle d : det) {
 				cantidad = cantidad + d.getCantidad();
 			}
 			for(PedidoDetalle d : det) {
+				PedidoDTO dto = new PedidoDTO();
 				dto.setCantidad(String.valueOf(cantidad));
 				dto.setFecha(formatoFecha.format(prod.getFecha()));
 				dto.setIdPedido(prod.getIdPedido());
