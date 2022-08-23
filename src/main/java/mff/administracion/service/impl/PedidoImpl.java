@@ -59,6 +59,9 @@ public class PedidoImpl implements IPedidoService {
 			pd.setTotal(prod.getPrecio() * dto.getCantidad());
 			total = total + (prod.getPrecio() * dto.getCantidad());
 			pd = this.pedidoDetalleDAO.save(pd);
+			//ademas actualizo el stock del inventario
+			prod.setStock(prod.getStock() - dto.getCantidad());
+			this.productoDAO.save(prod);
 		}
 		pedido.setTotal(total);
 		bandera = true;

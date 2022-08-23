@@ -57,6 +57,7 @@ public class ReportesRestController {
 			dto.setNombreProducto(prod.getNombre());
 			dto.setPrecio(prod.getPrecio());
 			dto.setStock(prod.getStock());
+			dto.setCodigo(prod.getCodigo());
 			dataFinal.add(dto);
 		}
 		

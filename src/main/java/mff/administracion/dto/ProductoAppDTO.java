@@ -6,6 +6,7 @@ public class ProductoAppDTO {
 	private String title;
 	private Double price;
 	private String descripcion;
+	private Integer stock;
 
 	public ProductoAppDTO() {
 		super();
@@ -57,6 +58,14 @@ public class ProductoAppDTO {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 
 }

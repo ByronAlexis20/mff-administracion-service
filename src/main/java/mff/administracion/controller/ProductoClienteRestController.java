@@ -132,6 +132,7 @@ public class ProductoClienteRestController {
 				dto.setTitle(prod.getNombre());
 				dto.setPrice(prod.getPrecio());
 				dto.setDescripcion(prod.getDescripcion());
+				dto.setStock(prod.getStock());
 				List<Imagen> img = this.imagenService.buscarImagenesPorProducto(prod.getIdProducto());
 				if(img.size() > 0)
 					dto.setImage(img.get(0).getImagen());
