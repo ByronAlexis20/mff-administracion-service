@@ -39,6 +39,7 @@ public class ProductoImpl implements IProductoService {
 		prod.setStock(pr.getStock());
 		prod.setIdProducto(pr.getIdProducto());
 		prod.setCodigo(pr.getCodigo());
+		prod.setDescripcion(pr.getDescripcion());
 		return this.productoDAO.save(prod);
 	}
 

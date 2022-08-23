@@ -64,6 +64,9 @@ public class Producto implements Serializable {
 
 	@Column(name = "estado")
 	private String estado;
+	
+	@Column(name = "descripcion")
+	private String descripcion;
 
 	public Producto() {
 		super();
@@ -194,6 +197,14 @@ public class Producto implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }

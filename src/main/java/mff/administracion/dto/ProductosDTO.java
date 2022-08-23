@@ -10,6 +10,7 @@ public class ProductosDTO {
 	private Integer stock;
 	private String estado;
 	private byte[] imagen;
+	private String descripcion;
 
 	public ProductosDTO() {
 		super();
@@ -93,6 +94,14 @@ public class ProductosDTO {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }

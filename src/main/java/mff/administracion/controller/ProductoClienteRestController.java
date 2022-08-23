@@ -73,6 +73,7 @@ public class ProductoClienteRestController {
 						pr.setPrecio(p.getPrecio());
 						pr.setStock(p.getStock());
 						pr.setEstado(p.getEstado());
+						pr.setDescripcion(p.getDescripcion());
 						if(img.size() > 0)
 							pr.setImagen(img.get(0).getImagen());
 						lista.add(pr);
@@ -130,6 +131,7 @@ public class ProductoClienteRestController {
 				dto.setId(String.valueOf(prod.getIdProducto()));
 				dto.setTitle(prod.getNombre());
 				dto.setPrice(prod.getPrecio());
+				dto.setDescripcion(prod.getDescripcion());
 				List<Imagen> img = this.imagenService.buscarImagenesPorProducto(prod.getIdProducto());
 				if(img.size() > 0)
 					dto.setImage(img.get(0).getImagen());
