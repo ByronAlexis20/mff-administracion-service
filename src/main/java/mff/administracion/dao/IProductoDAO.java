@@ -14,7 +14,7 @@ public interface IProductoDAO extends CrudRepository<Producto, Integer> {
 	public Producto buscarProductoPorId(Integer idProducto);
 	
 	@Query("select p "
-			+ "from Producto p where p.estado = 'A' ")
+			+ "from Producto p where p.estado = 'A' order by p.categoria.idCategoria")
 	public List<Producto> buscarProductosActivosDTO();
 	
 	@Query("select p "
