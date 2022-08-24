@@ -25,4 +25,9 @@ public interface IPedidoDAO extends CrudRepository<Pedido, Integer> {
 	@Query("select p "
 			+ "from Pedido p where p.idPedido = ?1 ")
 	public Pedido buscarPedidoPorId(Integer id);
+	
+	@Query("select p "
+			+ "from Pedido p where p.estado = 'A' and p.estado_pedido = 'P' and p.fecha = ?1 order by p.fecha")
+	public List<Pedido> buscarPedidoPendientePorFecha(Date fecha);
+	
 }

@@ -35,7 +35,7 @@ public class PedidoImpl implements IPedidoService {
 	
 	@Override
 	@Transactional
-	public boolean grabarPedido(Integer idCliente, List<PedidoClienteDTO> listaPedido) {
+	public boolean grabarPedido(Integer idCliente, List<PedidoClienteDTO> listaPedido, String direccion) {
 		Boolean bandera = false;
 		Cliente cl = this.clienteDAO.buscarPorId(idCliente);
 		Pedido pedido = new Pedido();
@@ -44,6 +44,7 @@ public class PedidoImpl implements IPedidoService {
 		pedido.setEstado_pedido("P");//estado del pedido pendiente
 		pedido.setFecha(new Date());
 		pedido.setIdPedido(null);
+		pedido.setDireccion(direccion);
 		pedido = this.pedidoDAO.save(pedido);
 		
 		double total = 0.0;
@@ -108,6 +109,18 @@ public class PedidoImpl implements IPedidoService {
 	@Transactional(readOnly = true)
 	public List<Pedido> buscarPedidoAtendidoPorRangoFecha(Date fechaInicio, Date fechaFin) {
 		return this.pedidoDAO.buscarPedidoAtendidoPorRangoFecha(fechaInicio, fechaFin);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Pedido> buscarPedidoPendientePorFecha(Date fecha) {
+		return this.pedidoDAO.buscarPedidoPendientePorFecha(fecha);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Object[]> buscarMasVendidoMenosVendido(Integer anio, Integer mes) {
+		return this.pedidoDetalleDAO.buscarMasVendidoMenosVendido(anio, mes);
 	}
 
 }

@@ -24,27 +24,27 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pedido", columnDefinition = "int4")
 	private Integer idPedido;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha")
 	private Date fecha;
-	
+
 	@Column(name = "latitud")
 	private Double latitud;
-	
+
 	@Column(name = "longitud")
 	private Double longitud;
-	
+
 	@Column(name = "total")
 	private Double total;
 
 	@Column(name = "estado_pedido")
 	private String estado_pedido;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_creacion")
 	private Date fechacCreacion;
@@ -68,6 +68,9 @@ public class Pedido implements Serializable {
 
 	@Column(name = "estado")
 	private String estado;
+
+	@Column(name = "direccion")
+	private String direccion;
 
 	public Pedido() {
 		super();
@@ -204,6 +207,13 @@ public class Pedido implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
 }

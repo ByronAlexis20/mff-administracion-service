@@ -35,12 +35,10 @@ public class PedidosController {
 	private IPedidoService pedidoService;
 	
 	
-	@PostMapping("/generarPedido/{idcliente}")
-	public ResponseEntity<?> generarPedido(@Valid @RequestBody String data, @PathVariable Integer idcliente) throws JsonMappingException, JsonProcessingException {
+	@PostMapping("/generarPedido/{idcliente}/{direccion}")
+	public ResponseEntity<?> generarPedido(@Valid @RequestBody String data, @PathVariable Integer idcliente, @PathVariable String direccion) throws JsonMappingException, JsonProcessingException {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			System.out.println(idcliente);
-			System.out.println(data);
 			//JSONObject jsonObject = new JSONObject(data);
 			ObjectMapper objectMapper = new ObjectMapper();
 			TypeFactory typeFactory = objectMapper.getTypeFactory();
@@ -48,7 +46,7 @@ public class PedidosController {
 			for(PedidoClienteDTO dto : resp) {
 				System.out.println(dto.getIdProducto());
 			}
-			if(this.pedidoService.grabarPedido(idcliente, resp) == false) {
+			if(this.pedidoService.grabarPedido(idcliente, resp, direccion) == false) {
 				response.put("mensaje", "Error al realizar el pedido");
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}

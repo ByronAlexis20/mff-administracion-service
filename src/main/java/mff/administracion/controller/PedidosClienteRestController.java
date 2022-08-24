@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mff.administracion.dao.PedidosAtenderDTO;
+import mff.administracion.dto.PedidoDetalleDTO;
 import mff.administracion.dto.ProductoDTO;
 import mff.administracion.dto.ProductosDTO;
 import mff.administracion.entity.Imagen;
@@ -158,10 +159,22 @@ public class PedidosClienteRestController {
 	
 	@GetMapping(value = "/buscarPedidosDetalle/{id}")
 	public ResponseEntity<?> buscarPedidosDetalle(@PathVariable Integer id) {
-		List<PedidoDetalle> data = null;
+		List<PedidoDetalleDTO> data = new ArrayList<>();
 		Map<String, Object> response = new HashMap<>();
 		try {
-			data = this.pedidoService.buscarPedidoPorPedido(id);
+			List<PedidoDetalle> lista = this.pedidoService.buscarPedidoPorPedido(id);
+			for(PedidoDetalle det : lista) {
+				PedidoDetalleDTO dto = new PedidoDetalleDTO();
+				dto.setCantidad(det.getCantidad());
+				dto.setIdPedidoDetalle(det.getIdPedidoDetalle());
+				dto.setPrecioUnitario(det.getPrecioUnitario());
+				dto.setProducto(det.getProducto().getNombre());
+				dto.setTotal(det.getTotal());
+				List<Imagen> img = this.imagenService.buscarImagenesPorProducto(det.getProducto().getIdProducto());
+				if(img.size() > 0)
+					dto.setImagen(img.get(0).getImagen());
+				data.add(dto);
+			}
 		} catch (DataAccessException e) {
 			response.put("mensaje: ", DatosSesionUtil.mensajeErrorConsulta);
 			response.put("error: ", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -171,7 +184,7 @@ public class PedidosClienteRestController {
 			response.put("mensaje: ", DatosSesionUtil.mensajeNoDatos);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<PedidoDetalle>>(data, HttpStatus.OK);
+		return new ResponseEntity<List<PedidoDetalleDTO>>(data, HttpStatus.OK);
 	}
 	
 	@PostMapping("/atender/{id}")
