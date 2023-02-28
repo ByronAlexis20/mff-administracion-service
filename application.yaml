@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: servicio-administrativo
+
+server:
+  port: '4042'
+
+admin:
+  #url: jdbc:mysql://localhost:3306/bd-mariscal-fast-food?serverTimezone=UTC
+  url: jdbc:mysql://localhost:3306/mariscal?serverTimezone=UTC
+  username: root
+  password: 'admin123'
