@@ -29,7 +29,6 @@ import mff.administracion.service.IPedidoService;
 import mff.administracion.service.IProductoService;
 import mff.administracion.util.DatosSesionUtil;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/mff-administracion/pedidocliente")
 public class PedidosClienteRestController {

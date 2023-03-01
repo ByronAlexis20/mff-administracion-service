@@ -57,12 +57,15 @@ public class PedidosController {
 			}
 			if(this.pedidoService.grabarPedido(idcliente, resp, direccion) == false) {
 				response.put("mensaje", "Error al realizar el pedido");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}else {
+				response.put("mensaje", "Pedido generado con éxito");
 				//emitir las notificaciones al front
 				Cliente cl = this.clienteservice.buscarPorId(idcliente);
 				Map<String, Object> r = new HashMap<>();
 				r.put("cliente", cl.getNombres() + " " + cl.getApellidos());
-				restTemplate.postForObject("http://localhost:3000/api/pedidos/enviar", r, List.class);
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				//restTemplate.postForObject("http://localhost:3000/api/pedidos/enviar", r, List.class);
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 			}
 			//System.out.println(jsonObject);
 		} catch (DataAccessException e) {
@@ -70,8 +73,6 @@ public class PedidosController {
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		response.put("mensaje", "Pedido generado con éxito");
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
 	
